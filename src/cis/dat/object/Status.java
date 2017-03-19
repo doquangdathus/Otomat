@@ -2,20 +2,23 @@ package cis.dat.object;
 
 import java.util.ArrayList;
 
-public class Status {
-	private ArrayList<String> listStatus;
+public class Status implements Comparable<Status>{
+	private ArrayList<String> listStatus = new ArrayList<>();
 	private boolean isFinishStatus = false;
+	private boolean isBeginStatus = false;
 	public Status(String endSttInString) {
 		String[] es = endSttInString.split(",");
-		listStatus = new ArrayList<>();
 		for (String e : es) {
-			setEndStatus(e);
+			setStatus(e);
 		}
 	}
-	public void setEndStatus(String stt){
+	public Status() {
+		// TODO Auto-generated constructor stub
+	}
+	public void setStatus(String stt){
 		if(!listStatus.contains(stt)) listStatus.add(stt);
 	}
-	public ArrayList<String> getListEndStatus(){
+	public ArrayList<String> getListStatus(){
 		return listStatus;
 	}
 	public void setFinishStatus(){
@@ -24,6 +27,15 @@ public class Status {
 	public boolean isFinishStatus(){
 		return isFinishStatus;
 	}
+	public void setBeginStatus(){
+		isBeginStatus = true;
+	}
+	public boolean isBeginStatus(){
+		return isBeginStatus;
+	}
+	public boolean isNullStatus(){
+		return listStatus.size() == 0;
+	}
 	@Override
 	public String toString() {
 		String sttInString = "";
@@ -31,5 +43,18 @@ public class Status {
 			sttInString += i < listStatus.size() - 1 ? listStatus.get(i) + "," : listStatus.get(i); ;
 		}
 		return sttInString;
+	}
+	@Override
+	public int compareTo(Status o) {
+		ArrayList<String> listCompareStatus = o.getListStatus();
+		if(listCompareStatus.size() != this.listStatus.size()){
+			return 1;
+		}
+		for(int i = 0; i < listCompareStatus.size(); i ++){
+			if(!listStatus.contains(listCompareStatus.get(i))){
+				return 1;
+			}
+		}
+		return 0;
 	}
 }

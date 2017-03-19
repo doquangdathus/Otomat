@@ -7,13 +7,13 @@ public class Transform {
 	private Status es;
 	private String alphabet;
 	public ArrayList<String> getBeginStatus() {
-		return bs.getListEndStatus();
+		return bs.getListStatus();
 	}
 	public void setBs(Status bs) {
 		this.bs = bs;
 	}
 	public ArrayList<String> getEndStatusInList() {
-		return es.getListEndStatus();
+		return es.getListStatus();
 	}
 	public Status getEndStatus() {
 		return es;
@@ -27,18 +27,10 @@ public class Transform {
 	public void setAlphabet(String alphabet) {
 		this.alphabet = alphabet;
 	}
-	public String transListSttToString(ArrayList<String> listStt){
-		String res = "";
-		for (String endSt : listStt) {
-			res += endSt + ",";
-		}
-		return res;
-	}
 	@Override
 	public String toString() {
-		String beginStt = transListSttToString(getBeginStatus());
-		String endStt = transListSttToString(getEndStatusInList());
-		return beginStt + " " + getAlphabet() + " " + endStt;
+		String endSttInString = es.isNullStatus() == true ? "null" : es.toString();
+		return bs.toString() + " " + getAlphabet() + " " + endSttInString;
 	}
 	
 }
