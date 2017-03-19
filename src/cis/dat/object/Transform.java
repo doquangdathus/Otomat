@@ -1,19 +1,25 @@
 package cis.dat.object;
 
+import java.util.ArrayList;
+
 public class Transform {
-	private Status beginStatus;
+	private Status bs;
+	private Status es;
 	private String alphabet;
-	private Status endStatus;
-	public Transform(String beginStatus, String endStatus, String alphabet) {
-		this.beginStatus = new Status(beginStatus);
-		this.endStatus = new Status(endStatus);
-		this.alphabet = alphabet;
+	public ArrayList<String> getBeginStatus() {
+		return bs.getListEndStatus();
 	}
-	public Status getBeginStatus() {
-		return beginStatus;
+	public void setBs(Status bs) {
+		this.bs = bs;
 	}
-	public void setBeginStatus(Status beginStatus) {
-		this.beginStatus = beginStatus;
+	public ArrayList<String> getEndStatusInList() {
+		return es.getListEndStatus();
+	}
+	public Status getEndStatus() {
+		return es;
+	}
+	public void setEs(Status es) {
+		this.es = es;
 	}
 	public String getAlphabet() {
 		return alphabet;
@@ -21,15 +27,18 @@ public class Transform {
 	public void setAlphabet(String alphabet) {
 		this.alphabet = alphabet;
 	}
-	public Status getEndStatus() {
-		return endStatus;
-	}
-	public void setEndStatus(Status endStatus) {
-		this.endStatus = endStatus;
+	public String transListSttToString(ArrayList<String> listStt){
+		String res = "";
+		for (String endSt : listStt) {
+			res += endSt + ",";
+		}
+		return res;
 	}
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return beginStatus.getStatus() + " " + alphabet + " " + endStatus;
+		String beginStt = transListSttToString(getBeginStatus());
+		String endStt = transListSttToString(getEndStatusInList());
+		return beginStt + " " + getAlphabet() + " " + endStt;
 	}
+	
 }

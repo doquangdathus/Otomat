@@ -6,9 +6,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import cis.dat.object.Alphabet;
-import cis.dat.object.Function;
-import cis.dat.object.Status;
 import cis.dat.object.Transform;
+import cis.dat.object.TransformFunction;
 
 public class WriteAutomata {
 	private BufferedWriter bw;
@@ -30,12 +29,10 @@ public class WriteAutomata {
 			return;
 		}
 	}
-	public void write(Function function, Alphabet alphabet, 
-			ArrayList<Status> newStatus, String transformStatus){
+	public void write(TransformFunction tff, Alphabet alphabet){
 		try {
 			bw.write(alphabet + "\n");
-			bw.write("Assume: " + transformStatus + "\n");
-			ArrayList<Transform> listTransform = function.getListTransform();
+			ArrayList<Transform> listTransform = tff.getTransformFunction();
 			for (Transform transform : listTransform) {
 				bw.write(transform.toString() + "\n");
 			}
