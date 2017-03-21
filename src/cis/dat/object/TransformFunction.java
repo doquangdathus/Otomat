@@ -3,6 +3,7 @@ package cis.dat.object;
 import java.util.ArrayList;
 
 public class TransformFunction {
+	private ArrayList<Status> allStatus;
 	private ArrayList<Transform> listTransform;
 	private ArrayList<Boolean> checked;
 	public TransformFunction() {
@@ -28,15 +29,28 @@ public class TransformFunction {
 		}
 		return new Status();
 	}
-	public void setChecked(int i){
-		checked.set(i, true);
+	public void setAllStatus(ArrayList<Status> allStatus) {
+		this.allStatus = allStatus;
 	}
-	public boolean isChecked(int i){
-		return checked.get(i);
+	public String newStatusInString(){
+		String res = "[";
+		for(int i = 0; i < allStatus.size(); i++){
+			res += i < allStatus.size() - 1 ? sttDetail(allStatus.get(i)) + "," : sttDetail(allStatus.get(i));
+		}
+		return res + "]";
+	}
+	public String sttDetail(Status stt){
+		if(stt.isInitialStatus()){
+			return stt.toString() + " " + "init";
+		} else if(stt.isFinishStatus()){
+			return stt.toString() + " " + "finish";
+		} else {
+			return stt.toString();
+		}
 	}
 	@Override
 	public String toString() {
-		String res = "";
+		String res = newStatusInString() + "\n";
 		for (Transform transform : listTransform) {
 			res += transform.toString() + "\n";
 		}

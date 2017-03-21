@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Status implements Comparable<Status>{
 	private ArrayList<String> listStatus = new ArrayList<>();
 	private boolean isFinishStatus = false;
-	private boolean isBeginStatus = false;
+	private boolean isInitialStatus = false;
 	public Status(String endSttInString) {
 		String[] es = endSttInString.split(",");
 		for (String e : es) {
@@ -27,20 +27,20 @@ public class Status implements Comparable<Status>{
 	public boolean isFinishStatus(){
 		return isFinishStatus;
 	}
-	public void setBeginStatus(){
-		isBeginStatus = true;
+	public void setInitialStatus(){
+		isInitialStatus = true;
 	}
-	public boolean isBeginStatus(){
-		return isBeginStatus;
+	public boolean isInitialStatus(){
+		return isInitialStatus;
 	}
 	public boolean isNullStatus(){
 		return listStatus.size() == 0;
 	}
 	@Override
 	public String toString() {
-		String sttInString = "";
+		String sttInString = "{";
 		for(int i = 0; i < listStatus.size(); i++){
-			sttInString += i < listStatus.size() - 1 ? listStatus.get(i) + "," : listStatus.get(i); ;
+			sttInString += i < listStatus.size() - 1 ? listStatus.get(i) + "," : listStatus.get(i) + "}" ;
 		}
 		return sttInString;
 	}

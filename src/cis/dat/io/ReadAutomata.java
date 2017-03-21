@@ -17,6 +17,10 @@ public class ReadAutomata {
 	private TransformFunction tfOld;
 	private String initialStatus;
 	private String finishStatus;
+	private String[] listStatusInString;
+	public String[] getListStatusInString() {
+		return listStatusInString;
+	}
 	public String getInitialStatus() {
 		return initialStatus;
 	}
@@ -64,6 +68,7 @@ public class ReadAutomata {
 	public void readAutomata(){
 		ArrayList<String> allLines = read();
 		alphabet = new Alphabet(allLines.get(0));
+//		listStatusInString = allLines.get(1).split(" ");
 		initialStatus = allLines.get(1);
 		finishStatus = allLines.get(2);
 		tfOld = new TransformFunction();

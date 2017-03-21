@@ -3,6 +3,7 @@ package cis.dat.main;
 import java.util.ArrayList;
 
 import cis.dat.io.ReadAutomata;
+import cis.dat.io.WriteAutomata;
 import cis.dat.object.Alphabet;
 import cis.dat.object.Status;
 import cis.dat.object.Transform;
@@ -14,21 +15,41 @@ public class Main {
 	static TransformFunction tffmNew;
 	static Alphabet alphabet;
 	static Status initialStatus;
-	static Status finishStatus;
+	static String finishStatus;
+	static String[] allStatusInString;
 	static ArrayList<Status> allStatus;
 	static Queue queue;
-
+	static WriteAutomata wa;
 	public static void main(String[] args) {
-		readAutomata("input.txt");
+//		testOneFile();
+		testAllCase();
+	}
+	public static void testAllCase(){
+		for(int i = 1; i <= 5; i++){
+			readAutomata("testcase" + i + ".txt");
+			allStatus = new ArrayList<>();
+			try {
+				process();
+				wa = new WriteAutomata("testcase" + i + "_out.txt");
+				wa.write(tffmNew, alphabet);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	public static void testOneFile(){
+		readAutomata("testcase" + 3 + ".txt");
 		allStatus = new ArrayList<>();
 		try {
 			process();
+			wa = new WriteAutomata("testcase" + 3 + "_out.txt");
+			wa.write(tffmNew, alphabet);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
 	public static void test1() {
 		Status end = tffOld.getTransform("p_1", "c");
 		System.out.println(end.toString());
@@ -39,9 +60,9 @@ public class Main {
 		tffOld = readAutomata.getTfOld();
 		alphabet = readAutomata.getAlphabet();
 		initialStatus = new Status(readAutomata.getInitialStatus());
-		initialStatus.setBeginStatus();
-		finishStatus = new Status(readAutomata.getFinishStatus());
-		finishStatus.setFinishStatus();
+		initialStatus.setInitialStatus();
+		finishStatus = readAutomata.getFinishStatus();
+		allStatusInString = readAutomata.getListStatusInString();
 	}
 
 	private static Status temp;
@@ -50,6 +71,7 @@ public class Main {
 		tffmNew = new TransformFunction();
 		queue = new Queue();
 		queue.enqueue(initialStatus);
+//		initialQueue();
 		allStatus.add(initialStatus);
 		ArrayList<String> alpha = alphabet.getAlphabe();
 		while (!queue.isEmpty()) {
@@ -73,9 +95,26 @@ public class Main {
 				}
 			}
 		}
-		printTransformFunction(tffmNew);
+		tffmNew.setAllStatus(allStatus);
+		setNewFinishStatus();
 	}
-
+	public static void setNewFinishStatus(){
+		for (Status status : allStatus) {
+			ArrayList<String> listStt = status.getListStatus();
+			for (String stt : listStt) {
+				if(finishStatus.contains(stt)){
+					status.setFinishStatus();
+					continue;
+				}
+			}
+		}
+	}
+	public static void initialQueue(){
+		for (String stt : allStatusInString) {
+			Status st = new Status(stt);
+			queue.enqueue(st);
+		}
+	}
 	public static void combineStatus(Status stt) {
 		ArrayList<String> listStt = stt.getListStatus();
 		for (String st : listStt) {

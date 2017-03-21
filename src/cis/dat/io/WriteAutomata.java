@@ -32,6 +32,7 @@ public class WriteAutomata {
 	public void write(TransformFunction tff, Alphabet alphabet){
 		try {
 			bw.write(alphabet + "\n");
+			bw.write(tff.newStatusInString() + "\n");
 			ArrayList<Transform> listTransform = tff.getTransformFunction();
 			for (Transform transform : listTransform) {
 				bw.write(transform.toString() + "\n");

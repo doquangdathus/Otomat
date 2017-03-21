@@ -1,0 +1,11 @@
+a b c
+p_0
+p_1 p_2
+p_0 a p_1
+p_0 b p_2,p_1
+p_0 c p_2
+p_1 a p_2
+p_1 c p_0,p_2
+p_2 a p_1
+p_2 b p_1
+p_2 c p_2
