@@ -38,6 +38,7 @@ public class Status implements Comparable<Status>{
 	}
 	@Override
 	public String toString() {
+		if(listStatus.size() == 0) return "null";
 		String sttInString = "{";
 		for(int i = 0; i < listStatus.size(); i++){
 			sttInString += i < listStatus.size() - 1 ? listStatus.get(i) + "," : listStatus.get(i) + "}" ;

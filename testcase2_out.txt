@@ -1,4 +1,5 @@
 a 
-[{p_0} init,{p_1} finish]
+[{p_0} init,{p_1} finish,null]
 {p_0} a {p_1}
 {p_1} a null
+null a null

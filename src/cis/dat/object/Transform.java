@@ -2,17 +2,20 @@ package cis.dat.object;
 
 import java.util.ArrayList;
 
-public class Transform {
+public class Transform{
 	private Status bs;
 	private Status es;
 	private String alphabet;
-	public ArrayList<String> getBeginStatus() {
+	public ArrayList<String> getBeginStatusInListString() {
 		return bs.getListStatus();
+	}
+	public Status getBeginStatus() {
+		return bs;
 	}
 	public void setBs(Status bs) {
 		this.bs = bs;
 	}
-	public ArrayList<String> getEndStatusInList() {
+	public ArrayList<String> getEndStatusInListString() {
 		return es.getListStatus();
 	}
 	public Status getEndStatus() {

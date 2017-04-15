@@ -1,5 +1,5 @@
 a b c 
-[{p_0} init,{p_1} finish,{p_2,p_1} finish,{p_2} finish,{p_0,p_2} finish]
+[{p_0} init,{p_1} finish,{p_2,p_1} finish,{p_2} finish,null,{p_0,p_2} finish]
 {p_0} a {p_1}
 {p_0} b {p_2,p_1}
 {p_0} c {p_2}
@@ -12,6 +12,9 @@ a b c
 {p_2} a {p_1}
 {p_2} b {p_1}
 {p_2} c {p_2}
+null a null
+null b null
+null c null
 {p_0,p_2} a {p_1}
 {p_0,p_2} b {p_2,p_1}
 {p_0,p_2} c {p_2}

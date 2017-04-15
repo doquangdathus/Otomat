@@ -19,7 +19,7 @@ public class TransformFunction {
 	}
 	public Status getTransform(String stt, String alphabet){
 		for (Transform transform : listTransform) {
-			ArrayList<String> beginStt = transform.getBeginStatus();
+			ArrayList<String> beginStt = transform.getBeginStatusInListString();
 			for (String begin : beginStt) {
 				if(begin.compareTo(stt) == 0
 						&& transform.getAlphabet().compareTo(alphabet) == 0){
@@ -47,6 +47,17 @@ public class TransformFunction {
 		} else {
 			return stt.toString();
 		}
+	}
+	public String getAllAlphabet(Status b, Status e){
+		String edg = "";
+		for (int i = 0; i < listTransform.size(); i++) {
+			Transform transform = listTransform.get(i);
+			if(transform.getBeginStatus().compareTo(b) == 0 
+					&& transform.getEndStatus().compareTo(e) == 0){
+				edg += transform.getAlphabet() + ",";
+			}
+		}
+		return edg;
 	}
 	@Override
 	public String toString() {
