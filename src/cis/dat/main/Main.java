@@ -64,11 +64,11 @@ public class Main {
 	}
 
 	public static void testOneFile() {
-		readAutomata("testcase" + 5 + ".txt");
+		readAutomata("testcase" + 3 + ".txt");
 		allStatus = new ArrayList<>();
 		try {
 			process();
-			wa = new WriteAutomata("testcase" + 5 + "_out.txt");
+			wa = new WriteAutomata("testcase" + 3 + "_out.txt");
 			wa.write(tffmNew, alphabet);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
