@@ -2,17 +2,17 @@ package cis.dat.object;
 
 import java.util.ArrayList;
 
-public class Status implements Comparable<Status>{
+public class State implements Comparable<State>{
 	private ArrayList<String> listStatus = new ArrayList<>();
 	private boolean isFinishStatus = false;
 	private boolean isInitialStatus = false;
-	public Status(String endSttInString) {
+	public State(String endSttInString) {
 		String[] es = endSttInString.split(",");
 		for (String e : es) {
 			setStatus(e);
 		}
 	}
-	public Status() {
+	public State() {
 		// TODO Auto-generated constructor stub
 	}
 	public void setStatus(String stt){
@@ -45,8 +45,11 @@ public class Status implements Comparable<Status>{
 		}
 		return sttInString;
 	}
+	public String singleDFAState(){
+		return listStatus.get(0);
+	}
 	@Override
-	public int compareTo(Status o) {
+	public int compareTo(State o) {
 		ArrayList<String> listCompareStatus = o.getListStatus();
 		if(listCompareStatus.size() != this.listStatus.size()){
 			return 1;

@@ -18,7 +18,7 @@ import cis.dat.io.ReadAutomata;
 import cis.dat.io.WriteAutomata;
 import cis.dat.object.Alphabet;
 import cis.dat.object.MyLink;
-import cis.dat.object.Status;
+import cis.dat.object.State;
 import cis.dat.object.Transform;
 import cis.dat.object.TransformFunction;
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
@@ -34,10 +34,10 @@ public class Main {
 	static TransformFunction tffOld;
 	static TransformFunction tffmNew;
 	static Alphabet alphabet;
-	static Status initialStatus;
+	static State initialStatus;
 	static String finishStatus;
 	static String[] allStatusInString;
-	static ArrayList<Status> allStatus;
+	static ArrayList<State> allStatus;
 	static Queue queue;
 	static WriteAutomata wa;
 
@@ -77,7 +77,7 @@ public class Main {
 	}
 
 	public static void test1() {
-		Status end = tffOld.getTransform("p_1", "c");
+		State end = tffOld.getTransform("p_1", "c");
 		System.out.println(end.toString());
 	}
 
@@ -126,15 +126,15 @@ public class Main {
 	public static void draw() {
 		DirectedGraph<String, MyLink> g = new DirectedSparseMultigraph<>();
 
-		for (Status status : allStatus) {
-			g.addVertex(status.toString());
+		for (State state : allStatus) {
+			g.addVertex(state.toString());
 		}
 //		System.out.println(allStatus.get(0).toString() + " " + allStatus.get(2).toString());
 //		System.out.println(tffmNew.getAllAlphabet(allStatus.get(0), allStatus.get(2)));
 		for (int i = 0; i < allStatus.size(); i++) {
 			for (int j = 0; j < allStatus.size(); j++) {
-				Status b = allStatus.get(i);
-				Status e = allStatus.get(j);
+				State b = allStatus.get(i);
+				State e = allStatus.get(j);
 				String alphabet = tffmNew.getAllAlphabet(b, e);
 				if (g.findEdge(b.toString(), e.toString()) == null
 						&& alphabet.compareTo("") != 0) {
@@ -192,13 +192,12 @@ public class Main {
 		ReadAutomata readAutomata = new ReadAutomata(filePath);
 		tffOld = readAutomata.getTfOld();
 		alphabet = readAutomata.getAlphabet();
-		initialStatus = new Status(readAutomata.getInitialStatus());
+		initialStatus = new State(readAutomata.getInitialStatus());
 		initialStatus.setInitialStatus();
 		finishStatus = readAutomata.getFinishStatus();
-		allStatusInString = readAutomata.getListStatusInString();
 	}
 
-	private static Status temp;
+	private static State temp;
 
 	public static void process() throws InterruptedException {
 		tffmNew = new TransformFunction();
@@ -208,15 +207,15 @@ public class Main {
 		allStatus.add(initialStatus);
 		ArrayList<String> alpha = alphabet.getAlphabe();
 		while (!queue.isEmpty()) {
-			Status currentStatus = (Status) queue.dequeue();
+			State currentStatus = (State) queue.dequeue();
 			ArrayList<String> listCurrentStatus = currentStatus.getListStatus();
 			for (String al : alpha) {
 				Transform tf = new Transform();
 				tf.setBs(currentStatus);
 				tf.setAlphabet(al);
-				temp = new Status();
+				temp = new State();
 				for (String curStt : listCurrentStatus) {
-					Status target = tffOld.getTransform(curStt, al);
+					State target = tffOld.getTransform(curStt, al);
 					combineStatus(target);
 				}
 				tf.setEs(temp);
@@ -232,11 +231,11 @@ public class Main {
 	}
 
 	public static void setNewFinishStatus() {
-		for (Status status : allStatus) {
-			ArrayList<String> listStt = status.getListStatus();
+		for (State state : allStatus) {
+			ArrayList<String> listStt = state.getListStatus();
 			for (String stt : listStt) {
 				if (finishStatus.contains(stt)) {
-					status.setFinishStatus();
+					state.setFinishStatus();
 					continue;
 				}
 			}
@@ -245,12 +244,12 @@ public class Main {
 
 	public static void initialQueue() {
 		for (String stt : allStatusInString) {
-			Status st = new Status(stt);
+			State st = new State(stt);
 			queue.enqueue(st);
 		}
 	}
 
-	public static void combineStatus(Status stt) {
+	public static void combineStatus(State stt) {
 		ArrayList<String> listStt = stt.getListStatus();
 		for (String st : listStt) {
 			temp.setStatus(st);
@@ -261,9 +260,9 @@ public class Main {
 		System.out.println(tff.toString());
 	}
 
-	public static boolean checkStatusExist(Status stt) {
-		for (Status status : allStatus) {
-			if (status.compareTo(stt) == 0)
+	public static boolean checkStatusExist(State stt) {
+		for (State state : allStatus) {
+			if (state.compareTo(stt) == 0)
 				return true;
 		}
 		return false;

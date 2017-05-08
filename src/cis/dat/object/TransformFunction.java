@@ -3,7 +3,7 @@ package cis.dat.object;
 import java.util.ArrayList;
 
 public class TransformFunction {
-	private ArrayList<Status> allStatus;
+	private ArrayList<State> allStatus;
 	private ArrayList<Transform> listTransform;
 	private ArrayList<Boolean> checked;
 	public TransformFunction() {
@@ -17,7 +17,7 @@ public class TransformFunction {
 	public ArrayList<Transform> getTransformFunction(){
 		return listTransform;
 	}
-	public Status getTransform(String stt, String alphabet){
+	public State getTransform(String stt, String alphabet){
 		for (Transform transform : listTransform) {
 			ArrayList<String> beginStt = transform.getBeginStatusInListString();
 			for (String begin : beginStt) {
@@ -27,9 +27,9 @@ public class TransformFunction {
 				}
 			}
 		}
-		return new Status();
+		return new State();
 	}
-	public void setAllStatus(ArrayList<Status> allStatus) {
+	public void setAllStatus(ArrayList<State> allStatus) {
 		this.allStatus = allStatus;
 	}
 	public String newStatusInString(){
@@ -39,7 +39,7 @@ public class TransformFunction {
 		}
 		return res + "]";
 	}
-	public String sttDetail(Status stt){
+	public String sttDetail(State stt){
 		if(stt.isInitialStatus()){
 			return stt.toString() + " " + "init";
 		} else if(stt.isFinishStatus()){
@@ -48,7 +48,7 @@ public class TransformFunction {
 			return stt.toString();
 		}
 	}
-	public String getAllAlphabet(Status b, Status e){
+	public String getAllAlphabet(State b, State e){
 		String edg = "";
 		for (int i = 0; i < listTransform.size(); i++) {
 			Transform transform = listTransform.get(i);
