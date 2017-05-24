@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
-import cis.dat.io.Rule;
+import cis.dat.object.Rule;
 
 public class CNF {
 	static ArrayList<Rule> rules = new ArrayList<>();
@@ -18,16 +18,22 @@ public class CNF {
 	static int digit = 90;
 
 	public static void main(String[] args) throws IOException {
-		readGrammar("cnf.txt");
-		ruleForAls();
-		step1();
-		step2();
-		step31();
-		step32();
-		System.out.println((int) 'S');
+		process("cnf4.txt");
+	}
+	public static void process(String fileInput) throws IOException{
+		readGrammar(fileInput);
+		if(isCNF()){
+			System.out.println("Is CNF form");
+		} else {
+			ruleForAls();
+			step1();
+//			step2();
+			step31();
+			step32();
+			step1();
+		}
 		printNewRules(rules);
 	}
-
 	// remove rule: A -> B
 	// lowercase 97 - 122
 	// uppercase 65 - 90
@@ -116,8 +122,6 @@ public class CNF {
 			}
 		}
 	}
-
-	// step3.2
 	public static Rule replaceRule(Rule rule, int j, int mark, int count, String oldRule) {
 		String tmp = rule.rights.get(j);
 		if (count >= 2) {
@@ -132,6 +136,19 @@ public class CNF {
 		}
 		rule.rights.set(j, tmp);
 		return rule;
+	}
+	public static boolean isCNF(){
+		for (Rule rule : rules) {
+			for (String string : rule.rights) {
+				if(string.length() == 2 && string.toUpperCase().compareTo(string) == 0
+						|| string.length() == 1 && string.toLowerCase().compareTo(string) == 0){
+					
+				} else {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 
 	public static void readGrammar(String fileInput) throws IOException {

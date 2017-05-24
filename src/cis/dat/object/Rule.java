@@ -1,4 +1,4 @@
-package cis.dat.io;
+package cis.dat.object;
 
 import java.util.ArrayList;
 

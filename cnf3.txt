@@ -1,0 +1,6 @@
+a b
+S -> AB | XB
+T -> AB | XB
+X -> AT
+A -> a
+B -> b
